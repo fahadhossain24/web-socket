@@ -8,11 +8,19 @@ const expressServer = http.createServer(app);
 const {Server} = require('socket.io');
 const io = new Server(expressServer);
 
-const buyNsp = io.of('/buy');
-buyNsp.on('connection', (socket) => {
+io.on('connection', (socket) => {
     console.log('new user connected');
 
-    socket.send('welcome to the  server buy space');
+
+    //practich room
+    socket.join('kitchen-room')
+    io.sockets.in('kitchen-room').emit('cooking', "now I'm cooking under kitchen-room");
+
+    socket.join('bed-room');
+    const bedRoomUserCount = io.sockets.adapter.rooms.get('bed-room').size
+    io.sockets.in('bed-room').emit('sleep', "Now I'm sleeping under bed-room" + bedRoomUserCount);
+
+    // socket.send('welcome to the  server buy space');
 
     // socket.on('message', (data) => {
     //     io.sockets.emit('myNameEvent', data);

@@ -18,10 +18,9 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        let socket = io('');
+        let socket = io();
 
-        socket.on('message', function(data){
-            console.log(data)
+        socket.on('sleep', function(data){
             document.getElementById('root').innerHTML = data;
         })
 
