@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web socket practich</title>
+</head>
+<body>
+    <h2 id="showInputValue"></h2>
+    <input type="text" name="name" id="name">
+    <button onclick='send()'>send</button>
+
+    <h2 id="time"></h2>
+    <p>Random Number: <span id="randomNumber"></span></p>
+    
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+
+        function send(){
+            const name = document.getElementById('name').value;
+            socket.send(name);
+        }
+        socket.on('myNameEvent', function(data){
+            document.getElementById('showInputValue').innerHTML = data;
+        })
+
+        socket.on('message', function(data) {
+            document.getElementById('time').innerHTML = data;
+        })
+        socket.on('myRandomNumberEvent', function(data){
+            document.getElementById('randomNumber').innerText = data;
+        })
+    </script>
+</body>
+</html>
