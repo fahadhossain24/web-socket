@@ -6,32 +6,41 @@
     <title>web socket practich</title>
 </head>
 <body>
-    <h2 id="showInputValue"></h2>
+    <!-- <div id="showInputValue"></div>
     <input type="text" name="name" id="name">
-    <button onclick='send()'>send</button>
+    <button onclick='send()'>send</button> -->
+
+    <h2 id="root"></h2>
 
     <h2 id="time"></h2>
-    <p>Random Number: <span id="randomNumber"></span></p>
+    <!-- <p>Random Number: <span id="randomNumber"></span></p> -->
     
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        let socket = io();
+        let socket = io('');
 
-        function send(){
-            const name = document.getElementById('name').value;
-            socket.send(name);
-        }
-        socket.on('myNameEvent', function(data){
-            document.getElementById('showInputValue').innerHTML = data;
+        socket.on('message', function(data){
+            console.log(data)
+            document.getElementById('root').innerHTML = data;
         })
 
-        socket.on('message', function(data) {
-            document.getElementById('time').innerHTML = data;
-        })
-        socket.on('myRandomNumberEvent', function(data){
-            document.getElementById('randomNumber').innerText = data;
-        })
+        // function send(){
+        //     const name = document.getElementById('name').value;
+        //     socket.send(name);
+        // }
+        // socket.on('myNameEvent', function(data){
+        //     const h2 = document.createElement('h2')
+        //     h2.innerHTML = data;
+        //     document.getElementById('showInputValue').appendChild(h2);
+        // })
+
+        // socket.on('message', function(data) {
+        //     document.getElementById('time').innerHTML = data;
+        // })
+        // socket.on('myRandomNumberEvent', function(data){
+        //     document.getElementById('randomNumber').innerText = data;
+        // })
     </script>
 </body>
 </html>

@@ -8,23 +8,27 @@ const expressServer = http.createServer(app);
 const {Server} = require('socket.io');
 const io = new Server(expressServer);
 
-io.on('connection', (socket) => {
+const buyNsp = io.of('/buy');
+buyNsp.on('connection', (socket) => {
     console.log('new user connected');
 
-    socket.on('message', (data) => {
-        socket.emit('myNameEvent', data);
-    })
+    socket.send('welcome to the  server buy space');
 
-    setInterval(() => {
-        const date = new Date()
-        const time = date.toLocaleTimeString()
-        socket.send(time);
-    }, 1000)
+    // socket.on('message', (data) => {
+    //     io.sockets.emit('myNameEvent', data);
+    // })
 
-    setInterval(() => {
-        const randomNumber = Math.floor(Math.random() * 10000);
-        socket.emit('myRandomNumberEvent', randomNumber);
-    }, 1000)
+    // setInterval(() => {
+    //     const date = new Date()
+    //     const time = date.toLocaleTimeString()
+    //     socket.send(time);
+    // }, 1000)
+
+    // // we use emit to create own event
+    // setInterval(() => {
+    //     const randomNumber = Math.floor(Math.random() * 10000);
+    //     socket.emit('myRandomNumberEvent', randomNumber);
+    // }, 1000)
 })
 
 
